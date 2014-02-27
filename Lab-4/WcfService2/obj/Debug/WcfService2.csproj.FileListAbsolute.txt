@@ -1,0 +1,6 @@
+c:\users\ranger\documents\visual studio 2013\Projects\WcfService2\WcfService2\bin\WcfService2.dll.config
+c:\users\ranger\documents\visual studio 2013\Projects\WcfService2\WcfService2\bin\WcfService2.dll
+c:\users\ranger\documents\visual studio 2013\Projects\WcfService2\WcfService2\bin\WcfService2.pdb
+c:\users\ranger\documents\visual studio 2013\Projects\WcfService2\WcfService2\obj\Debug\WcfService2.csprojResolveAssemblyReference.cache
+c:\users\ranger\documents\visual studio 2013\Projects\WcfService2\WcfService2\obj\Debug\WcfService2.dll
+c:\users\ranger\documents\visual studio 2013\Projects\WcfService2\WcfService2\obj\Debug\WcfService2.pdb
