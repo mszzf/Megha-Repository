@@ -1,0 +1,41 @@
+<link rel="stylesheet" type="text/css" href="login.css">
+<SCRIPT SRC="validation.js"></SCRIPT>
+<div id="container_demo" >
+    <a class="hiddenanchor" id="toregister"></a>
+    <div id="wrapper">
+<div id="register" class="animate form">
+            <form autocomplete="on"> 
+                <h1> Sign up </h1> 
+                <p> 
+                    <label for="usernamesignup" data-icon="u">Your username</label>
+                    <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="username565" />
+                </p>
+                <p> 
+                    <label for="emailsignup" data-icon="e" > Your email</label>
+                    <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="email@mail.com"/> 
+                </p>
+                <p> 
+                    <label for="passwordsignup" data-icon="p">Your password </label>
+                    <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. J8df!90E5"/>
+                </p>
+                <p> 
+                    <label for="passwordsignup_confirm" data-icon="p">Please confirm your password </label>
+                    <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. J8df!90E5"/>
+                </p>
+				<p> 
+                    <label for="addresssignup" data-icon="u">Your Address </label>
+                    <input id="addresssignup" name="addresssignup" required="required" type="address" placeholder="address67thStreet"/>
+                </p>
+				<p> 
+                    <label for="phonenumbersignup" data-icon="u">Your Phone number </label>
+                    <input id="phonenumbersignup" name="phonenumbersignup" required="required" type="phonenumber" placeholder="landline or mobile number"/>
+                </p>
+                <p class="signin button"> 
+                    <input type="submit" value="Sign up" onclick ="SaveUser()"/> 
+                </p>
+                <p class="change_link">  
+                    Already a member ?
+                    <a href="login.htm" class="to_register"> Go and log in </a>
+                </p>
+            </form>
+</div>
