@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+<h1 id="header">Energy Utilization Charts</h1>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	
+	
+	
+	 <style type='text/css'>
+    #header{	
+	background: none;
+	padding-left: 120px;
+    
+	
+}
+
+#header2
+{
+float: center;
+text-align:center;
+
+
+}
+</style>
+
+	
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+    </script>
+    <script type="text/javascript">
+      function drawVisualization() {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+          ['Month', 'KiloWatts', 'AverageTemperature'],
+          ['Sep/11',  774,      67],
+          ['Oct/11',  724,      60],
+          ['Nov/11',  756,      57],
+          ['Dec/11',  689,      44],
+          ['Jan/12',  714,      34],
+          ['Feb/12',  784,      23],
+          ['Mar/12',  627  ,      45],
+          ['Apr/12',  782,      56],
+          ['May/12',  765,      55],
+          ['June/12',  775,      77],
+          ['July/12',  654,      78],
+          ['Aug/12',  731,      80],
+          ['Sep/12',  797,      89],
+          
+        ]);
+
+        /*var options = {
+          title : 'Monthly Report of Usage',
+          vAxis: {0: {format: '#,###'}, 1: {format: '#%'} },
+          hAxis: {title: "Month"},
+          seriesType: "bars",
+          series: {1: {type: "line"}}
+        };*/
+		
+		var options = {
+        vAxis: {0:  {format: '#,###', color: 'red'}, 1: {format: '#%'} },
+        hAxis: { title: " Month"},
+		
+        series: {
+            0:{  type: "bars", targetAxisIndex: 0, color: '#76A7FA' },
+            1: { type: "line", targetAxisIndex: 1, color: '#b87333'}
+        }
+    }
+
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+      google.setOnLoadCallback(drawVisualization);
+    </script>
+	
+  </head>
+  <body background ="best.png">
+    <div id="chart_div" style="padding-left: 120px; width: 1100px; height: 500px;"></div>
+	
+	<h2 id="header2">Monthly energy consumption with variation in temperature</h2>
+	
+  </body>
+</html>
