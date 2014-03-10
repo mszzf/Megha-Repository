@@ -18,6 +18,10 @@
         .bar{height:220px; float:left; width: 100px}
         .bar-container{width:150px;float:left;padding-top:70px;color:brown;font:17px Arial bold;margin-left:20px;}
 		.emoticon-container{float:left;padding-top:70px;color:brown;font:17px Arial bold;margin-left:20px;}
+		.smile-container{float:left;padding-top:50px;color:white;font:17px Arial bold;margin-left:300px;}
+		.outside-container{float:left;color:white;font:25px Arial bold;margin-left:20px;}
+		.gauge{float:left; width: 100px}
+		.bigger-container{float:left;padding-top:80px;margin-left:130px;}
         .left{float:left}
         .bar-label{margin-bottom:15px;display:inline-block;color:white}
         .backg{ background-color:green;clear:both}
@@ -140,6 +144,19 @@
 
 
   myMap.drawGauge('gaugeContainer',ci);
+  
+  var sadSmile=document.getElementById("sadSmile");
+  sadSmile.style.display="none";
+  var happySmile=document.getElementById("happySmile");
+  happySmile.style.display="none";
+  if(ci>0.5 || ci<-0.5){
+  
+  sadSmile.style.display="block";
+  
+  }
+  else{
+  happySmile.style.display="block";
+  }
 
 var emoticon=document.getElementById("sweating");
 var emoticonShivering=document.getElementById("shivering");
@@ -154,11 +171,18 @@ emoticonShivering.style.display="none";
   }
 
   }
-
+  
+  function recommendations(){
+  var recommendation=document.getElementById("recommendation");
+  recommendation.style.display="block";
+  
+  
+}
 
   $(document).ready(function(){
 
    myMap.drawGauge('gaugeContainer',1.5);
+   
 });
 
 
@@ -202,12 +226,52 @@ emoticonShivering.style.display="none";
 <img  style="height:200px; width:200px;float:left" src="http://www.sherv.net/cm/emo/christmas/winter-cold-smiley-emoticon.gif" border="0" alt="Shiver"/>
 <img style="height:150px; width:200px" src="C:\Users\ranger\Desktop\lab3\lab-3\Login-Regitration-Pages\Login-Regitration-Pages\callout.png">
 </div>
+
+
+<div id="recommendation" style="display:none" class="bigger-container">
+<span class="outside-container" style="float:left;color:white;font:25px Arial bold;margin-left:20px;" >Recommendations </span>
+<br/>
+<br/>
+<span style="float:left;color:white;font:20px Arial bold;margin-left:10px;">1. Lower the temperature to 65 F</span>
+<br/>
+<span style="float:left;color:white;font:20px Arial bold;margin-left:10px;">2. Open windows to reduce humidity</span>
+<br/>
+<span style="float:left;color:white;font:20px Arial bold;margin-left:10px;">3. Change to Summer clothing if possible</span>
+<br/>
+<span style="float:left;color:white;font:20px Arial bold;margin-left:10px;">4. Use a fan for cooling and sit next to windows</span>
+<br/>
+<br/>
+<br/>
+
+
 </div>
+</div>
+
+
 <div style="clear:both;padding:30px"></div>
 
+<div id='gaugeContainer'class="gauge">  </div>
 
+<div id="sadSmile" style="display:none" class="smile-container">
+<img alt="Shaking No" width=70 height=70 src="http://www.sherv.net/cm/emo/sad/sad-crying-smiley-face.gif"></a>
+<span> Comfort level is too low </span>
+<span>
+<button onclick="recommendations()" style="clear:both">Generate Recommendations!</button>
+<span>
+</div>
+<div id="happySmile" style="display:none" class="smile-container">
+<img alt="Thumbs up" width=70 height=70 src="http://www.sherv.net/cm/emo/happy/big-grin-smiley-emoticon.gif"></a>
+<span> Comfort level is good </span>
+</div>
 
-<div id='gaugeContainer'>  </div>
+<div style="float:left;padding-top:80px;margin-left:20px;">
+<span id="temperature_id" style="float:left;color:white;font:20px Arial bold;margin-left:20px"></span>
+<br/>
+<br/>
+
+<span id="humidity_id" style="float:left;color:white;font:20px Arial bold;margin-left:20px"></span>
+</div>
+
 
 
 

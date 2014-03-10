@@ -293,8 +293,13 @@ MyMap.prototype = {
                        var location ="" ;
                        var temp_f = parsed_json['current_observation']['temp_f'];
                        var relative_humidity= parsed_json['current_observation']['relative_humidity'];
-                       alert("Current humidity: " + relative_humidity + " , temperature: " + temp_f);
-                       }
+					   
+					   document.getElementById('temperature_id').innerHTML = "  Outside Temperature: "+ temp_f +" F";
+					   document.getElementById('humidity_id').innerHTML = "  Outside Humidity: "+relative_humidity;
+					   
+                     //  alert("Current humidity: " + relative_humidity + " , temperature: " + temp_f);
+					 
+					                        }
                       });
                 }, []);
        }
