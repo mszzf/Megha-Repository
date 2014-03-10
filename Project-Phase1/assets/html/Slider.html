@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>jQuery UI Slider - Multiple sliders</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http:/resources/demos/style.css">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,weather&sensor=true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="../js/webServices.js"></script>
+
+
+    <style>
+        .bar{height:220px; float:left; width: 100px}
+        .bar-container{width:150px;float:left;padding-top:70px;color:brown;font:17px Arial bold;margin-left:20px;}
+		.emoticon-container{float:left;padding-top:70px;color:brown;font:17px Arial bold;margin-left:20px;}
+        .left{float:left}
+        .bar-label{margin-bottom:15px;display:inline-block;color:white}
+        .backg{ background-color:green;clear:both}
+        .ui-slider-range.ui-widget-header {
+        background:brown;
+        }
+        .backb{ background-image:url("best.png")}
+
+        h1 {
+        float:left;
+        margin-left:500px;
+        font:50px Arial bold;
+        color:white
+
+                }
+        h1:hover {
+        cursor: pointer;
+        color: #f00;
+        }
+
+        h1:active {
+        color:#555;
+        }
+        .clear{clear:both}
+
+    </style>
+    <script>
+  $(function() {
+    // setup master volume
+    $( "#temperature" ).each(function() {
+      // read initial values from markup and remove that
+      var value = parseInt( $( this ).text(), 10 );
+      $( this ).empty().slider({
+        value: value,
+        range: "min",
+        animate: true,
+
+        orientation: "vertical" ,
+        change: function( event, ui ) {
+        $("#temperatureLabel").text(ui.value);
+        setComforIndex(ui.value, $( "#humidity" ).slider( "value" ),$( "#clothing" ).slider( "value" ))  ;
+        }
+      });
+    });
+    $( "#humidity" ).each(function() {
+      // read initial values from markup and remove that
+      var value = parseInt( $( this ).text(), 10 );
+      $( this ).empty().slider({
+        value: value,
+        range: "min",
+        animate: true,
+        orientation: "vertical",
+        change: function( event, ui ) {
+        $("#humidityLabel").text(ui.value);
+        setComforIndex($( "#temperature" ).slider( "value" ), ui.value,$( "#clothing" ).slider( "value" )) ;
+        }
+      });
+    });
+    $( "#clothing" ).each(function() {
+      // read initial values from markup and remove that
+      var value = parseInt( $( this ).text(), 10 );
+      $( this ).empty().slider({
+        value: value,
+        range: "min",
+        animate: true,
+        step:33,
+        orientation: "vertical" ,
+        change: function( event, ui ) {
+        $("#clothingLabel").text(getClothingLabel(ui.value));
+        setComforIndex($( "#temperature" ).slider( "value" ), $( "#humidity" ).slider( "value" ),ui.value)
+        }
+      });
+    });
+
+    var tempHandle=$("#temperature").find("a");
+    $("#temperatureLabel").text($( "#temperature" ).slider( "value" ));
+    $("#humidityLabel").text($( "#humidity" ).slider( "value" ));
+    $("#clothingLabel").text(getClothingLabel($( "#clothing" ).slider( "value" )));
+
+    setComforIndex($( "#temperature" ).slider( "value" ), $( "#humidity" ).slider( "value" ),$( "#clothing" ).slider( "value" ));
+
+
+  });
+  function getClothingLabel(c){
+  var label="";
+  switch(c){
+
+  case 33:
+  label="Summer";
+  break;
+
+  case 66:
+  label="Business";
+  break;
+
+  case 100:
+  label="Winter";
+  break;
+
+  }
+
+  return label;
+
+  }
+
+  function setComforIndex(t, h,c) {
+   var ci=0;
+   var comfortTemperature=t<75 && t>60;
+   var comfortHumidity=h<50 && h>35;
+   var comfortClothing=c>32 && c<67;
+
+
+
+   var comfortIndex= (comfortTemperature && comfortHumidity && comfortClothing);
+
+    if(comfortIndex==true)
+        ci= 0.45;
+    else
+        ci=  1.5;
+
+
+  myMap.drawGauge('gaugeContainer',ci);
+
+var emoticon=document.getElementById("sweating");
+var emoticonShivering=document.getElementById("shivering");
+emoticon.style.display="none";
+emoticonShivering.style.display="none";
+
+  if(t>80)  {
+  emoticon.style.display="block";
+  }
+  else if(t<50){
+  emoticonShivering.style.display="block";
+  }
+
+  }
+
+
+  $(document).ready(function(){
+
+   myMap.drawGauge('gaugeContainer',1.5);
+});
+
+
+
+  </script>
+</head>
+<body class="backb">
+
+<h1 class="clear">
+    <br/> Home Comfort</h1>
+
+
+
+<div id="eq">
+
+   <div class="bar-container clear">
+    <span class="bar-label"> Temperature: </span>
+    <span id="temperatureLabel"></span>
+    <span id="temperature" class="bar ui-slider-range.ui-widget-header">63</span>
+   </div >
+
+
+
+    <div class="bar-container">
+    <span class="bar-label"> Humidity: </span>
+    <span id="humidityLabel"></span>
+    <span id="humidity" class="bar">30</span>
+    </div>
+
+        <div class="bar-container">
+
+        <span class="bar-label"> Clothing: </span>
+    <span id="clothingLabel"></span>
+    <span id="clothing" class="bar">33</span>
+        </div>
+<div id="sweating" style="display:none" class="emoticon-container">
+    <img style="height:200px; width:250px;float:left" src="http://i717.photobucket.com/albums/ww173/prestonjjrtr/Smileys%20Summer/SummerHotFan.gif" alt="Smiley face" >
+	<img style="height:150px; width:150px" src="C:\Users\ranger\Desktop\lab3\lab-3\Login-Regitration-Pages\Login-Regitration-Pages\callout-hot.png">
+</div>
+<div id="shivering" style="display:none" class="emoticon-container" >
+<img  style="height:200px; width:200px;float:left" src="http://www.sherv.net/cm/emo/christmas/winter-cold-smiley-emoticon.gif" border="0" alt="Shiver"/>
+<img style="height:150px; width:200px" src="C:\Users\ranger\Desktop\lab3\lab-3\Login-Regitration-Pages\Login-Regitration-Pages\callout.png">
+</div>
+</div>
+<div style="clear:both;padding:30px"></div>
+
+
+
+<div id='gaugeContainer'>  </div>
+
+
+
+
+
+</body>
+</html>
