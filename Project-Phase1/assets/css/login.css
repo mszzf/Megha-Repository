@@ -11,6 +11,8 @@
         0pt 2px 5px rgba(105, 108, 109,  0.7),  
         0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
     border-radius: 5px;
+	background-image:url('green-spring-background.jpg');width:100%;height:100%;
+
 }
 #login{
     z-index: 22;

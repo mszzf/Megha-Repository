@@ -61,7 +61,10 @@ font-size:1.1em;
         chart: {
             renderTo: 'container',
             zoomType: 'x',
-            spacingRight: 20
+            spacingRight: 20,
+			borderColor: 'green',
+            borderWidth: 15,
+            type: 'line'
         },
         title: {
             text: 'Detailed Energy Utilization'
@@ -155,7 +158,7 @@ font-size:1.1em;
 </head> 
  <body >
 	<div>
-		<div id="container" style="height: 650px; min-width: 700px"></div>
+		<div id="container" style="height: 400px; min-width: 150px"></div>
 	</div>
 	<table>
 	<tr>
@@ -164,6 +167,9 @@ font-size:1.1em;
 	</td>
 	<td>
 	<button id="button1" onclick="window.location.href='homepage.html'">Home</button>
+	</td>
+	<td>
+	<button id="button1" onclick="window.location.href='Cost1.html'"> Cost Details</button>
 	</td>
 	</tr>
 	</table>
