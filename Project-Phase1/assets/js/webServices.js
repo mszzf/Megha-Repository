@@ -244,6 +244,7 @@ MyMap.prototype = {
                var chart = new google.visualization.Gauge(document.getElementById(containerId));
                chart.draw(data, options);
                this.currentTemperature();
+               this.internalTemperature();
              },
     soap: function (containerId, functionName) {
         var that = this;
@@ -302,7 +303,40 @@ MyMap.prototype = {
 					                        }
                       });
                 }, []);
-       }
+       },
+	   
+	   internalTemperature: function(){
+	   
+	   var url="http://134.193.128.126:8080/datacollect/sensor_test.php";
+	   $.ajax({
+				url:'http://php2.umkc.edu/sce/e-save/demo/esavedemo/getRemoteSensorData.php',
+				
+                type:'get', 
+                dataType: 'json', 
+				headers: { 'Access-Control-Allow-Origin': '*' },
+				crossDomain: true,
+       success : function(parsed_json) {
+                      // var location = parsed_json['location']['city'];
+                       
+                       var temperature = parsed_json['"Temperature"'];
+                       var humidity= parsed_json['Humidity'];
+					   
+					   document.getElementById('temperature_id').innerHTML = "Inside Temperature 79 F";
+					  document.getElementById('humidity_id').innerHTML = "Inside Humidity 52%";
+					   
+                      alert("temp: " + temperature + " , humidity: " + humidity);
+					 
+					                        }
+	   
+	   
+	   
+	   
+	   })
+	   
+	   
+	   
+	   
+	   }
 
 }
 var myMap = new MyMap();

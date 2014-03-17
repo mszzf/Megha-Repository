@@ -1,217 +1,343 @@
-<!doctype html>
-<html>
-<head>
-    <title></title>
-    <link rel='stylesheet' href='webServices.css' />
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,weather&sensor=true"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script type="text/javascript" src="webServices.js"></script>
-    <script type="text/javascript" src="soapclient.js"></script>
-</head>
-<body>
-<div data-role="page" id='pagezero'>
-    <h1>Enter Input Credentials</h1>
-    <div data-role="content">
-        <form method="post" action="demoform.asp">
-            <div data-role="fieldcontain">
-                <label for="userid">User Id:</label>
-                <input type="text" name="userid" id="userid" data-inline="true" class='input-box'>
-                <label for="password">Password:</label>
-                <input type="text" name="password" id="password" data-inline="true" class='input-box'>
-            </div>
-            <a href="#pageone" data-transition="fade" data-inline="true" onclick="myMap.init('', 'l');" > Submit </a>
-        </form>
-    </div>
-</div>
-<div data-role="page" id='pageone'>
-    <div data-role="header">
-        <h1>
-            Welcome To Homepage
-        </h1>
-        <span class="login" > Welcome</span>&nbsp;
-        <span id='userName' > New User</span>
-    </div>
-    <div data-role="content">
-        <a href="#" data-role="button" data-transition="fade" data-icon="home" data-inline="true">Home</a>
-        <a href="#pagetwo" data-role="button" data-transition="fade" data-icon="grid" data-inline="true">Options</a>
-        <a href="#InfoPage" data-role="button" data-transition="fade" data-icon="info" data-inline="true">Information</a>
-    </div>
-</div>
-<div data-role="page" id='StoreInfo'>
-    <input type="text" placeholder="Enter Name" id="inputString" />
-    <h1 onclick="clearStorage()">clear storage</h1>
-    <h1 onclick="saveStatusLocally()">store</h1>
-    <h1 onclick="readStatus()">print</h1>
-    <div id="write"></div>
-    <div data-role="content">
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">Go Back</a>
-        <a href="#InfoEventPage" data-role="button" data-inline="true" data-icon="arrow-r">Next Page</a>
-    </div>
-</div>
-<div data-role="page" id="InfoEventPage">
-    <h1 onclick="clearStorage2()">clear storage</h1>
-    <h1 onclick="readStatus2()">print</h1>
-    <div id="write2"></div>
-    <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">Go Back</a>
-</div>
-<div data-role="page" id='pagetwo'>
-    <div data-role="header">
-        <p>
-            Select Option
-        </p>
-    </div>
-    <div data-role="content">
-        <a href="#pageRegular" data-role="button" data-transition="fade" data-icon="search" onclick="myMap.init('mapRegular','r');">Where am I?</a>
-        <a href="#getDirectionInputs" data-role="button" data-transition="fade" data-icon="search" >Find directions?</a>
-        <a href="#pageNearMe" data-role="button" data-transition="fade" data-icon="search" >Places Near Me</a>
-        <a href="#pageWeather" data-role="button" data-transition="fade" data-icon="search" onclick="myMap.init('mapWeather', 'w');">Weather Information</a>
-        <a href="#pageSoap1" data-role="button" data-transition="fade" data-icon="search" onclick="myMap.initSoap('soapResult');">Employee DB</a>
-        <p>
-        </p>
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">
-            Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='InfoPage'>
-    <div data-role="content">
-        <div>
-            <p>
-                This App has been developed by mszzf@mail.umkc.com.
-                <br/> The App gives the current location of the user, directions to a destination, weather information and places nearby.
-            </p>
-        </div>
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">
-            Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='pageRegular'>
-    <div data-role="content">
-        <div id='mapRegular' class='map-container'>
-        </div>
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">
-            Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='getDirectionInputs'>
-    <div data-role="content">
-        <p> </p>
-        <p> </p>
-        <div> Select the Source and Destination </div>
-        <form method="post" action="demoform.asp">
-            <div data-role="fieldcontain">
-                <label for="From">From:</label>
-                <input type="text" name="From" id="From">
-                <label for="To">To:</label>
-                <input type="text" name="To" id="To">
-            </div>
-            <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back"> Go Back </a>
-            <a href="#pageDirection" data-transition="fade" data-inline="true" onclick="myMap.init('mapDirection', 'd','','From','To'); saveStatusLocally()"> Submit </a>
-            <a href="#MyPlaces" data-role="button" data-transition="fade" data-inline="true" data-icon="search" onclick="readStatus();" >Recent Search</a>
-        </form>
-    </div>
-</div>
-<div data-role="page" id='pageMyPlaces'>
-    <div data-role="content">
-        <div id="myPlaces"></div>
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back"> Go Back </a>
-    </div>
-</div>
-<div data-role="page" id='pageNearMe'>
-    <div data-role="content">
-        <div id='mapNearMe' class='map-container'></div>
-        <a href="#pageNearMe" data-role="button" data-transition="fade" data-icon="search" data-inline="true" onclick="myMap.init('mapNearMe', 'n', 'food');">Restuarants</a>
-        <p>
-        </p>
-        <a href="#pageNearMe" data-role="button" data-transition="fade" data-icon="search" data-inline="true" onclick="myMap.init('mapNearMe', 'n', 'pharmacy');">Phramcies</a>
-        <p>
-        </p>
-        <a href="#pageNearMe" data-role="button" data-transition="fade" data-icon="search" data-inline="true" onclick="myMap.init('mapNearMe', 'n', 'gas_station');">Gas Stations</a>
-        <p>
-        </p>
-        <a href="#pageNearMe" data-role="button" data-transition="fade" data-icon="search" data-inline="true" onclick="myMap.init('mapNearMe', 'n', 'atm');">ATM</a>
-        <p>
-        </p>
-        <a href="#pageNearMe" data-role="button" data-transition="fade" data-icon="search" data-inline="true" onclick="myMap.init('mapNearMe', 'n', 'grocery_or_supermarket');">Grocery Stores</a>
-        <p>
-        </p>
-        <a href="#pageNearMe" data-role="button" data-transition="fade" data-icon="search" data-inline="true" onclick="myMap.init('mapNearMe', 'n', 'subway_station');">Subway Stations</a>
-        <p>
-        </p>
-        <p>
-        </p>
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='pageWeather'>
-    <div data-role="content">
-        <div id='mapWeather' class='map-container'>
-        </div>
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">
-            Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='pageDirection'>
-    <div data-role="content">
-        <div id='mapDirection' class='map-container'>
-        </div>
-        <div id='instructionContainer' class='map-container'>
-            <div id='directionInstructions' class='map-container'></div>
-        </div>
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">
-            Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='pageSoap1'>
-    <div data-role="content">
-            <a href="#pageSoap2" data-role="button" data-inline="true" data-icon="grid">Select</a>
-            <br/>
-            <a href="#pageSoap3" data-role="button" data-inline="true" data-icon="grid">Insert</a>
-            <br/>
-            <a href="#pageSoap4" data-role="button" data-inline="true" data-icon="grid">Delete</a>
-            <br/>
-            <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='pageSoap2'>
-    <div data-role="content">
-            <span>Name: </span><input id="nameSelect" type="text" class="soap-input">
-            <a href="#pageSoap5" data-role="button" data-inline="true" data-icon="grid" onclick="myMap.soap('xml','QueryTable','nameSelect');">Select</a>
-            <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='pageSoap3'>
-    <div data-role="content">
-            <span>Name: </span><input id="nameInsert" type="text" class="soap-input">
-            <span>Age: </span><input id="ageInsert" type="text" class="soap-input">
-            <span>SSN: </span><input id="ssnInsert" type="text" class="soap-input">
-            <a href="#pageSoap5" data-role="button" data-inline="true" data-icon="grid" id="soapInsert" onclick="myMap.soap('xml','InsertTable','nameInsert','ageInsert','ssnInsert');">Insert</a>
+var MyMap = function () {
+    this.name = 'megha';
+    this.latitude = 0;
+    this.longitude = 0;
+    this.center = 0;
+    this.zip = '66223';
+    this.zoom = 15;
+    this.mapTypeId = google.maps.MapTypeId.ROADMAP;
+    this.mapOptions = '';
+    this.nearMeType = '';
+    this.radius = 5000;
+    this.source = '';
+    this.destination = '';
+    this.soapContainer = '';
+    this.pl='';
+    this.wunder = new Object();
+    this.wunder.key = 'f8c3066322c719fa';
+    this.wunder.features = 'conditions';
+    google.load("visualization", "1", {packages:["corechart"]});
+    google.load('visualization', '1', {packages:['gauge']});
+}
 
-            <br/>
-            <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='pageSoap4'>
-    <div data-role="content">
-        <span>Name: </span><input id="nameDelete" type="text" class="soap-input">
-        <a href="#pageSoap5" data-role="button" data-inline="true" data-icon="grid" onclick="myMap.soap('xml','DeleteTable','nameDelete');">Delete</a>
 
-        <br/>
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">Go Back</a>
-    </div>
-</div>
-<div data-role="page" id='pageSoap5'>
-    <div data-role="content">
-        <div>
-        <span id="soapResult"></span>
-        </div>
-        <br/>
-        <div>
-        <a href="#" data-role="button" data-inline="true" data-icon="arrow-l" data-rel="back">Go Back</a>
-        </div>
-    </div>
-</div>
-</body>
-</html>
+MyMap.prototype = {
+    initSoap: function (container) {
+        this.soapContainer = document.getElementById(container);
+        this.pl = new SOAPClientParameters();
+        this.soapRefresh(true, false);
+
+    },
+    init: function (containerId, which, type, fromId, toId) {
+        var args = [];
+        args.push(containerId);
+        args.push(which);
+        args.push(type);
+        args.push(fromId);
+        args.push(toId);
+        this.setCurrentLocation(this.initMap, args);
+    },
+    setCurrentLocation: function (callbackFunc, args) {
+        var that = this;
+        if (this.zip) {
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({
+                'address': this.zip
+            }, function (location, status) {
+                if (status == 'OK') {
+                    that.latitude = location[0].geometry.location.lat();
+                    that.longitude = location[0].geometry.location.lng();
+                    callbackFunc.apply(that, args);
+                }
+            });
+        } else if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                that.latitude = position.coords.latitude;
+                that.longitude = position.coords.longitude;
+                callbackFunc.apply(that, args);
+            });
+        }
+    },
+    initMap: function (containerId, which, type, fromId, toId) {
+        var container = document.getElementById(containerId);;
+        var that = this;
+        that.center = new google.maps.LatLng(that.latitude, that.longitude);
+        that.mapOptions = {
+            zoom: that.zoom,
+            mapTypeId: that.mapTypeId,
+            center: that.center
+        }
+        switch (which) {
+        case 'r':
+            if (container) {
+                that.centeredMap(container);
+            }
+            break;
+        case 'd':
+            if (container) {
+                var fromElement = document.getElementById(fromId);
+                if (fromElement) {
+                    var from = fromElement.value;
+                    that.source = from;
+                    var toElement = document.getElementById(toId);
+                    if (toElement) {
+                        var to = toElement.value;
+                        that.destination = to;
+                    }
+                }
+
+                that.direction(container);
+            }
+            break;
+        case 'n':
+            that.nearMeType = type;
+            if (container) {
+                that.nearMe(container);
+            }
+            break;
+        case 'w':
+            if (container) {
+                that.weather(container);
+            }
+            break;
+        case 'l':
+
+            var userName = document.getElementById('userid').value;
+            var password = document.getElementById('password').value;
+            $.ajax({
+                url: "http://192.168.1.9/aspnet_client/WcfService1/WcfService1/WcfService1/Service1.svc/data/" + userName + "/" + password
+            }).then(function (data) {
+                if (data != 'false') {
+                    document.getElementById('userName').innerHTML = data;
+                }
+            });
+
+        }
+    },
+    centeredMap: function (container) {
+        var map = new google.maps.Map(container, this.mapOptions);
+        var pos = new google.maps.LatLng(this.latitude, this.longitude);
+        var infowindow = new google.maps.InfoWindow({
+            map: map,
+            position: pos,
+            content: 'I am here'
+        });
+    },
+    direction: function (container) {
+        var myOptions = {
+            zoom: 8,
+            mapTypeId: this.mapTypeId,
+            center: new google.maps.LatLng(0, 0)
+        }
+        var map2 = new google.maps.Map(container, myOptions);
+
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+        directionsDisplay.setMap(map2);
+        var request = {
+            origin: this.source,
+            destination: this.destination,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionInstructions = document.getElementById('directionInstructions');
+        directionsService.route(request, function (response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+                var route = response.routes[0];
+                var leg = route.legs[0]
+                var steps = leg.steps;
+                var instructions = '';
+                for (var i = 0; i < steps.length; i++) {
+                    var step = steps[i];
+                    instructions = instructions + step.instructions + '<br/>';
+                }
+                if (directionInstructions) {
+                    directionInstructions.innerHTML = instructions;
+                }
+
+            }
+        });
+    },
+    weather: function (container) {
+
+        var myOptions = {
+            zoom: 8,
+            mapTypeId: this.mapTypeId,
+            center: this.mapOptions.center
+        }
+        var weatherLayer = new google.maps.weather.WeatherLayer({
+            temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT
+        });
+        var map = new google.maps.Map(container, myOptions);
+        weatherLayer.setMap(map);
+
+        var cloudLayer = new google.maps.weather.CloudLayer();
+        cloudLayer.setMap(map);
+    },
+    nearMe: function (container) {
+        var request = {
+            location: this.mapOptions.center,
+            radius: this.radius,
+            types: [this.nearMeType]
+        };
+
+        var myOptions = {
+            zoom: 12,
+            mapTypeId: this.mapTypeId,
+            center: this.mapOptions.center
+        }
+        var map = new google.maps.Map(container, myOptions);
+        var that = this;
+        var service = new google.maps.places.PlacesService(map);
+        service.nearbySearch(request, function (results, status) {
+            if (status == google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    var place = results[i];
+                    that.createMarker(map, results[i]);
+                }
+            }
+        });
+
+    },
+    createMarker: function (map, result) {
+        var marker = new google.maps.Marker({
+            map: map,
+            position: result.geometry.location
+        });
+    },
+    charts: function (containerId) {
+      var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Los Angeles',     15],
+          ['Vegas',     20 ]
+        ]);
+
+        var options = {
+          title: 'Most Economic',
+           width: 400,
+            height: 240,
+            colors: ['#e0440e', '#e6693e']
+
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById(containerId));
+        chart.draw(data, options);
+    },
+     drawGauge:function(containerId,ci){
+               var data = google.visualization.arrayToDataTable([
+                 ['Label', 'Value'],
+                 ['C.I.', ci]
+               ]);
+
+               var options = {
+                 width: 400, height: 400,
+                 redFrom:-2, redTo: -0.5,
+                 greenFrom: -0.5, greenTo: 0.5,
+                 yellowFrom:0.5, yellowTo: 2,
+                 redColor: '#FF9900',
+                 minorTicks: 20,
+                 min: -2,
+                 max: 2
+               };
+
+               var chart = new google.visualization.Gauge(document.getElementById(containerId));
+               chart.draw(data, options);
+               this.currentTemperature();
+               this.internalTemperature();
+             },
+    soap: function (containerId, functionName) {
+        var that = this;
+        var url = "http://localhost:19832/WebService.asmx";
+        this.soapMethod = functionName;
+        this.soapRefresh(false, true);
+
+        SOAPClient.invoke(url, functionName, this.pl, true, function (r) {
+            if (that.soapContainer) {
+                that.soapContainer.innerHTML = r;
+            }
+        });
+
+    },
+
+    soapRefresh: function (load, displayResult) {
+        delete this.pl['name'];
+        delete this.pl['age'];
+        delete this.pl['ssn'];
+
+        switch (this.soapMethod) {
+        case "QueryTable":
+                this.pl.add("name", document.getElementById("nameSelect").value);
+            break;
+        case "InsertTable":
+                this.pl.add("name", document.getElementById("nameInsert").value);
+                this.pl.add("age", document.getElementById("ageInsert").value);
+                this.pl.add("ssn", document.getElementById("ssnInsert").value);
+            break;
+        case "DeleteTable":
+                this.pl.add("name", document.getElementById("nameDelete").value);
+            break;
+        }
+    },
+     	currentTemperature: function(){
+          var that = this;
+     	 this.setCurrentLocation(function(){
+
+                     var urlI = "http://api.wunderground.com/api/" + that.wunder.key + "/" + that.wunder.features +
+                     "/q/" + that.latitude + "," + that.longitude + ".json";
+
+                     $.ajax({
+                       url : urlI,
+                       dataType : "jsonp",
+                       success : function(parsed_json) {
+                      // var location = parsed_json['location']['city'];
+                       var location ="" ;
+                       var temp_f = parsed_json['current_observation']['temp_f'];
+                       var relative_humidity= parsed_json['current_observation']['relative_humidity'];
+					   
+					   document.getElementById('temperature_id').innerHTML = "  Outside Temperature: "+ temp_f +" F";
+					   document.getElementById('humidity_id').innerHTML = "  Outside Humidity: "+relative_humidity;
+					   
+                     //  alert("Current humidity: " + relative_humidity + " , temperature: " + temp_f);
+					 
+					                        }
+                      });
+                }, []);
+       },
+	   
+	   internalTemperature: function(){
+	   
+	   
+	   $.ajax({
+				url:'http://php2.umkc.edu/sce/e-save/demo/esavedemo/getRemoteSensorData.php',
+				
+                type:'get', 
+                dataType: 'json', 
+				//headers: { 'Access-Control-Allow-Origin': '*' },
+				//crossDomain: true,
+       success : function(data) {
+                      $.each(data, function(key, val){
+				temp = val.Temperature;
+				var volt = val.Humidity;
+				humidity= parseFloat(((volt /3000)-0.1515)/.00636).toFixed(3);
+					  
+                       
+                    //   var temperature = parsed_json["Temperature"];
+                     //  var humidity= parsed_json["Humidity"];
+					   
+					  document.getElementById('temperature_internal').innerHTML ="  Inside Temperature: "+temp;
+					  
+					 
+					document.getElementById('humidity_internal').innerHTML = "  Inside Humidity: "+humidity;
+					   
+                      //alert("temp: " + temp + " , humidity: " + humidity);
+					 
+					                        });
+	   
+	   	   } 
+	   
+
+});
+}
+}
+var myMap = new MyMap();

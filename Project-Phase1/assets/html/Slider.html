@@ -51,9 +51,14 @@
     <script>
   $(function() {
     // setup master volume
+	 
+	 
     $( "#temperature" ).each(function() {
       // read initial values from markup and remove that
       var value = parseInt( $( this ).text(), 10 );
+	  
+	  
+	  
       $( this ).empty().slider({
         value: value,
         range: "min",
@@ -187,6 +192,8 @@ emoticonShivering.style.display="none";
 
 
 
+
+
   </script>
 </head>
 <body class="backb">
@@ -201,7 +208,7 @@ emoticonShivering.style.display="none";
    <div class="bar-container clear">
     <span class="bar-label"> Temperature: </span>
     <span id="temperatureLabel"></span>
-    <span id="temperature" class="bar ui-slider-range.ui-widget-header">63</span>
+    <span id="temperature" class="bar ui-slider-range.ui-widget-header">60</span>
    </div >
 
 
@@ -218,13 +225,14 @@ emoticonShivering.style.display="none";
     <span id="clothingLabel"></span>
     <span id="clothing" class="bar">33</span>
         </div>
+
 <div id="sweating" style="display:none" class="emoticon-container">
     <img style="height:200px; width:250px;float:left" src="http://i717.photobucket.com/albums/ww173/prestonjjrtr/Smileys%20Summer/SummerHotFan.gif" alt="Smiley face" >
-	<img style="height:150px; width:150px" src="C:\Users\ranger\Desktop\lab3\lab-3\Login-Regitration-Pages\Login-Regitration-Pages\callout-hot.png">
+	<img style="height:150px; width:150px" src="../images/callout-hot.png">
 </div>
 <div id="shivering" style="display:none" class="emoticon-container" >
 <img  style="height:200px; width:200px;float:left" src="http://www.sherv.net/cm/emo/christmas/winter-cold-smiley-emoticon.gif" border="0" alt="Shiver"/>
-<img style="height:150px; width:200px" src="C:\Users\ranger\Desktop\lab3\lab-3\Login-Regitration-Pages\Login-Regitration-Pages\callout.png">
+<img style="height:150px; width:200px" src="../images/callout.png">
 </div>
 
 
@@ -236,19 +244,27 @@ emoticonShivering.style.display="none";
 <br/>
 <span style="float:left;color:white;font:20px Arial bold;margin-left:10px;">2. Open windows to reduce humidity</span>
 <br/>
-<span style="float:left;color:white;font:20px Arial bold;margin-left:10px;">3. Change to Summer clothing if possible</span>
+<span style="float:left;color:white;font:20px Arial bold;margin-left:10px;">3. Add more layers of clothing if possible</span>
 <br/>
 <span style="float:left;color:white;font:20px Arial bold;margin-left:10px;">4. Use a fan for cooling and sit next to windows</span>
-<br/>
-<br/>
-<br/>
 
+<br/>
+<br/>
+<br/>
 
 </div>
+
 </div>
 
 
-<div style="clear:both;padding:30px"></div>
+<div style="clear:both;padding:30px">
+<br/>
+
+
+
+ 
+
+</div>
 
 <div id='gaugeContainer'class="gauge">  </div>
 
@@ -257,6 +273,7 @@ emoticonShivering.style.display="none";
 <span> Comfort level is too low </span>
 <span>
 <button onclick="recommendations()" style="clear:both">Generate Recommendations!</button>
+
 <span>
 </div>
 <div id="happySmile" style="display:none" class="smile-container">
@@ -272,10 +289,13 @@ emoticonShivering.style.display="none";
 <span id="humidity_id" style="float:left;color:white;font:20px Arial bold;margin-left:20px"></span>
 </div>
 
+<div style="float:left;padding-top:80px;margin-left:20px;">
+<span id="temperature_internal" style="float:left;color:white;font:20px Arial bold;margin-left:20px"> Inside Temperature 79</span>
+<br/>
+<br/>
 
-
-
-
+<span id="humidity_internal" style="float:left;color:white;font:20px Arial bold;margin-left:20px">Inside Humidity 52%</span>
+</div>
 
 </body>
 </html>
