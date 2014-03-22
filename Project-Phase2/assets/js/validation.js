@@ -34,7 +34,7 @@ else if(password.match(passw))
 
 	localStorage.clear('loginDetails');
 	localStorage.setItem( 'loginDetails', JSON.stringify(loginDetails));
-	document.write('<iframe src="login.htm" height = "100%" width="100%"></iframe>');
+	document.write('<iframe src="../html/login.htm" height = "100%" width="100%"></iframe>');
 }  
 else  
 {   
@@ -65,7 +65,7 @@ var sUserName; var sPassword;
 	}
 	if(sUserName == userName){
 		if(sPassword == password){	
-			document.write('<iframe src="loginSuccess.htm" height = "100%" width="100%"></iframe>');
+			document.write('<iframe src="../html/homepage.html" height = "100%" width="100%"></iframe>');
 		}
 	else{
 		alert("Password does not match");
