@@ -1,0 +1,27 @@
+<link rel="stylesheet" type="text/css" href="login.css">
+<SCRIPT SRC="validation.js"></SCRIPT>
+<div id="container_demo" >
+    <div id="wrapper">
+        <div id="login">
+            <form autocomplete="on"> 
+			    <h1 style="color:white;font-weight:bold;font-family:magneto">Log in</h1> 
+                <p> 
+                    <label for="username" data-icon="u" style="color:white;font-weight:bold;font-family:magneto"> Username: </label>
+                    <input id="username" name="username" required="required" type="text" placeholder="username"/>
+                </p>
+                <p> 
+                    <label for="password" data-icon="p" style="color:white;font-weight:bold;font-family:magneto"> Password: </label>
+                    <input id="password" name="password" required="required" type="password" placeholder="eg. J8df!90E5" /> 
+                </p>
+                
+                <p class="login button"> 
+                    <input type="submit" style="color:black;font-weight:bold;font-family:magneto" value="Login" onclick = "VerifyUser()"  /> 
+                </p>
+                <p class="change_link" style="color:white;font-weight:bold;font-family:magneto">
+                    Not a member yet ?
+                    <a href="register.htm" class="to_register" style="color:white;font-weight:bold;font-family:magneto">Register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>

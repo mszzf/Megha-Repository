@@ -1,0 +1,680 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+	    <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	    <script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+    	<link href='http://fonts.googleapis.com/css?family=Droid+Serif|Lobster+Two' rel='stylesheet' type='text/css'>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript"></script>
+		<link rel='stylesheet' href='../css/myStyleSheet-upd.css' />
+		
+	
+	<script>
+	
+	 function makeVisible() {
+	
+		var surveyType=document.getElementById("surveyType");
+		
+		surveyType.style.display = "block";
+	
+	}
+	
+	function saveForm(){
+	
+	
+	
+	var budget=document.getElementById("budget");
+	budget.innerHTML="Do you want to see the annual estimated Budget? ";
+	
+	var recommendations=document.getElementById("recommendations");
+	recommendations.innerHTML="Do you wish to see the recommendation generated based on survey? ";
+	
+	
+	}
+	
+	function computeBudget(){
+	
+	var showBudget=document.getElementById("showBudget");
+	 showBudget.style.display = "block";
+	 drawChart();
+	 }
+	 
+	 function showTip(){
+	
+	var showTip=document.getElementById("showTip");
+	 showTip.style.display = "block";
+	 
+	 }
+	 
+	
+     google.load("visualization", "1", {packages:["corechart"]});
+      //google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Appliance', 'Expense'],
+          ['TV',  100],
+          ['Refrigerator',  1170],
+          ['Water Heating',  2000],
+          ['AC',  2067],
+		  ['Washing Machine',  900],
+		  ['Dish Washer',  760],
+		  ['Others',  1500]
+		  
+        ]);
+
+        var options = {
+          title: '    Appliance Contribution to Budget',
+          //hAxis: {title: 'Appliance', titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    
+	
+	
+	</script>
+	
+	</head>
+
+	<body class="backb">
+	
+
+  	<div id= "surveypage" data-role="page">
+	
+	<div data-role="header">
+	<img src = "../images/bulb.jpg" alt = "E-Smart"  width="100px" height="100px" class="mylogo"/>
+			<div class="mylogo"></div>
+	<h1 style="padding-top:15px;margin-left:500px;color:white;font:25px Arial bold;"> E-Smart Recommendations </h1>
+		
+			
+	</div>
+		
+	<nav data-role="navbar">
+            <ul>
+			
+				
+                <li><a href = "" data-role = "button" class = "ui-btn-active" >Take a Survey</a></li>
+                <li><a href="#pagetest" data-role = "button" rel="external" class = "ui-btn-active" data-transition="pop" onclick="computeBudget()">Budget My Year</a></li>
+				<li><a href = "" data-role = "button" class = "ui-btn-active" data-transition="pop">Recommendations</a></li>
+				
+			</ul>
+				
+	</nav>
+	<div data-role="content">
+        	
+         <center>	
+			<div> Please take the Survey to better understand your utilization</div>
+		</center>
+           
+	 </div>
+	   
+	
+	 <div id="surveyType">
+	 	<div>    
+	   <a href="#pageone" rel="external" data-transition="flip"><img src="http://www.traveldailynews.com/uploads/images/BAVARIAN.jpg" style="padding-top:70px" class="image-container ui-li-icon" alt="Family Info" rel="external"></a>
+	   
+	   </div>
+	   <div class>    
+	   <a href="#pagetwo" rel="external" data-transition="flip"><img src="http://donsapplianceandtv.com/wp-content/gallery/slider/appliances-home-page.jpg" style="padding-top:70px" class="image-container ui-li-icon" alt="Family Info" rel="external"></a>
+	   
+	   </div>
+	   
+	   <span style="float:left;clear:both;margin-left:30px;font:15px Arial bold;color:blue;padding-top:10px"> Household Information </span>
+	   <span style="float:left;margin-left:170px;font:15px Arial bold;color:blue;padding-top:10px"> Appliance Information </span>
+	
+	</div>
+	</div>
+	
+	
+	
+	
+	<div id= "pageone" data-role="page">
+	
+	<div data-role="header">
+	<img src = "../images/bulb.jpg" alt = "E-Smart"  width="100px" height="100px" class="mylogo"/>
+			<div class="mylogo"></div>
+	<h1 style="padding-top:15px;margin-left:500px;color:white;font:25px Arial bold;"> E-Smart Recommendations </h1>
+		
+			
+	</div>
+		
+	<nav data-role="navbar">
+            <ul>
+			
+				
+                <li><a href = "" data-role = "button" class = "ui-btn-active" >Take a Survey</a></li>
+                <li><a href = "#" data-role = "button" rel="external" class = "ui-btn-active" data-transition="pop">Budget My Year</a></li>
+				<li><a href = "" data-role = "button" class = "ui-btn-active" data-transition="pop">Recommendations</a></li>
+				
+			</ul>
+				
+	</nav>
+		<form id="householdInfo" name="user_form" >
+	<div>
+	<table style="float:left;color:brown;font:15px Arial bold;margin-left:60px">
+	
+			<tr>
+				<td>
+					State Code:
+				</td>
+			    <td>
+				<select id="stateCode" name="stateCode" size="1">	<option value="AL">AL</option>
+	<option value="AK">AK</option>
+	<option value="AZ">AZ</option>
+	<option value="AR">AR</option>
+	<option value="CA">CA</option>
+	<option value="CO">CO</option>
+	<option value="CT">CT</option>
+	<option value="DE">DE</option>
+	<option value="DC">DC</option>
+	<option value="FL">FL</option>
+	<option value="GA">GA</option>
+	<option value="HI">HI</option>
+	<option value="ID">ID</option>
+	<option value="IL">IL</option>
+	<option value="IN">IN</option>
+	<option value="IA">IA</option>
+	<option value="KS">KS</option>
+	<option value="KY">KY</option>
+	<option value="LA">LA</option>
+	<option value="ME">ME</option>
+	<option value="MD">MD</option>
+	<option value="MA">MA</option>
+	<option value="MI">MI</option>
+	<option value="MN">MN</option>
+	<option value="MS">MS</option>
+	<option value="MO">MO</option>
+	<option value="MT">MT</option>
+	<option value="NE">NE</option>
+	<option value="NV">NV</option>
+	<option value="NH">NH</option>
+	<option value="NJ">NJ</option>
+	<option value="NM">NM</option>
+	<option value="NY">NY</option>
+	<option value="NC">NC</option>
+	<option value="ND">ND</option>
+	<option value="OH">OH</option>
+	<option value="OK">OK</option>
+	<option value="OR">OR</option>
+	<option value="PA">PA</option>
+	<option value="RI">RI</option>
+	<option value="SC">SC</option>
+	<option value="SD">SD</option>
+	<option value="TN">TN</option>
+	<option value="TX">TX</option>
+	<option value="UT">UT</option>
+	<option value="VT">VT</option>
+	<option value="VA">VA</option>
+	<option value="WA">WA</option>
+	<option value="WV">WV</option>
+	<option value="WI">WI</option>
+	<option value="WY">WY</option>
+				</select>
+				</td>
+			</tr>
+			<br/>
+			<br/>
+			<tr>
+			<td>
+			Zip Code:
+			</td>
+			<td>
+				<input id="zipCode" type="text" name="zipCode" size ="5" maxlength="5" value="" />
+			</td>									
+			</tr>
+			
+			<tr>
+			<td>
+			Household Size:    
+			</td>
+			<td>
+				<input id="householdSize" type="text" name="householdSize" size ="5" maxlength="5" value="" />
+			</td>
+			
+			</tr>
+			
+			<tr>
+			<td>
+			Year your house was built?
+			</td>
+			<td>
+				<input id="year" type="text" name="year" size ="5" maxlength="5" value="" />
+			</td>
+			
+			</tr>
+			
+			<tr>
+			<td>
+			How do you heat your house?    
+			</td>
+			<br/>
+			<td>
+				<select id="heating" name="heating">
+					
+		<option value="">--- Select ---</option>
+		<option value="heat1">Electric Furnace</option>
+		<option value="heat2">Gas Furnace</option>
+		<option value="heat3">Oil Furnace</option>
+		<option value="heat4">Wall Heater</option>
+		<option value="heat5">Gas Oil/Boiler</option>
+		<option value="heat6">Heat Pump</option>
+	
+		</td>
+			
+		</tr>
+		
+		<tr>
+			<td>
+			How do you cool your house?    
+			</td>
+			<br/>
+			<td>
+				<select id="cooling" name="cooling">
+					
+		<option value="">--- Select ---</option>
+		<option value="cool1">No Air Conditioning</option>
+		<option value="cool2">Central Air Conditioner</option>
+		<option value="cool3">Heat Pump</option>
+		<option value="cool4">Window AC unit</option>
+			
+		</td>
+			
+		</tr>
+		
+		<tr>
+			<td>
+			What type of Water Heater do you use?    
+			</td>
+			<br/>
+			<td>
+				<select id="cooling" name="cooling">
+					
+		<option value="">--- Select ---</option>
+		<option value="water1">Electric Water Heater</option>
+		<option value="water2">gas Water Heater</option>
+		<option value="water3">Instantaneous</option>
+		
+			
+		</td>
+			
+		</tr>
+			
+			
+			<tr>
+				<td colspan="1">
+					
+					<a href = "#pagetwo" data-role = "button" class = "ui-btn-active" size="0" >Next</a></li>
+					
+				</td>
+			</tr>
+			
+	</table>
+		
+	</div>
+		
+	
+		</form>
+	</div>
+	
+	<div id= "pagetwo" data-role="page">
+	<div data-role="header">
+	<img src = "../images/bulb.jpg" alt = "E-Smart"  width="100px" height="100px" class="mylogo"/>
+			<div class="mylogo"></div>
+	<h1 style="padding-top:15px;margin-left:500px;color:white;font:25px Arial bold;"> E-Smart Recommendations </h1>
+		
+			
+	</div>
+		
+	<nav data-role="navbar">
+            <ul>
+			
+				
+                <li><a href = "" data-role = "button" class = "ui-btn-active" >Take a Survey</a></li>
+                <li><a href = "#" data-role = "button" rel="external" class = "ui-btn-active" data-transition="pop">Budget My Year</a></li>
+				<li><a href = "" data-role = "button" class = "ui-btn-active" data-transition="pop">Recommendations</a></li>
+				
+			</ul>
+				
+	</nav>
+	
+		<form id="appliance1" name="user_form" >
+	<div>
+	<table style="float:left;color:brown;font:15px Arial bold;margin-left:60px">
+	<tr>
+	<td>Appliance:*</td>
+	<td><select name='appliance'>
+	
+	<option value="">--- Select ---</option>
+	<option value="Refrigerator">Refrigerator</option>
+	<option value="Microwave">Microwave</option>
+	<option value="Television">Television</option>
+	<option value="AC">AC</option>
+	<option value="Heater">Heater</option>
+	<option value="Cooktop">Cooktop</option>
+	<option value="Dishwasher">Dishwasher</option>
+	<option value="WashingMachine">Washing Machine</option>
+	<option value="Dryer">Dryer</option>
+		
+	</td>
+	
+	</tr>
+	<tr>
+				<td>
+					Model Number:
+				</td>
+				<td>
+					<input id="model_number" type="text" name="model_number" value="" />
+				</td>									
+	</tr>
+	<tr>
+				<td>
+					Usage in hrs:*
+				</td>
+				
+				<td>
+					<input id="daily_usage" type="number" name="daily_usage" size ="2" maxlength="2"value="" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					* Add all Your Appliances to get Accurate Usage Estimate
+				</td>
+				<br/><br/>
+			</tr><br><br>
+			<tr>
+				<td colspan="3">
+					
+					<span style="float:left;padding-top:30px">
+					<a href = "#pageone" data-role = "button" class = "ui-btn-active" >Back</a></li>
+					</span>
+					
+					<span style="float:left;padding-top:30px">
+					<a href = "#pagethree" data-role = "button" class = "ui-btn-active" >Add Appliance</a></li>
+					</span>
+					
+					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<span style="float:left;padding-top:20px">
+					<a href = "#pagefive" data-role = "button" class = "ui-btn-active" onclick="saveForm();">Submit</a></li>
+					</span>
+					
+				</td>
+			</tr>
+			
+	
+	
+	</table>
+		
+	</div>
+		
+	
+		</form>
+	</div>
+	
+	<div id= "pagethree" data-role="page">
+	<div data-role="header">
+	<img src = "../images/bulb.jpg" alt = "E-Smart"  width="100px" height="100px" class="mylogo"/>
+			<div class="mylogo"></div>
+	<h1 style="padding-top:15px;margin-left:500px;color:white;font:25px Arial bold;"> E-Smart Recommendations </h1>
+		
+			
+	</div>
+		
+	<nav data-role="navbar">
+            <ul>
+			
+				
+                <li><a href = "" data-role = "button" class = "ui-btn-active" >Take a Survey</a></li>
+                <li><a href = "#" data-role = "button" rel="external" class = "ui-btn-active" data-transition="pop">Budget My Year</a></li>
+				<li><a href = "" data-role = "button" class = "ui-btn-active" data-transition="pop">Recommendations</a></li>
+				
+			</ul>
+				
+	</nav>
+		<form id="appliance2" name="user_form" >
+	<div>
+	<table style="float:left;color:brown;font:15px Arial bold;margin-left:60px">
+	<tr>
+	<td>Appliance:*</td>
+	<td><select name='appliance'>
+	
+	<option value="">--- Select ---</option>
+	<option value="Refrigerator">Refrigerator</option>
+	<option value="Microwave">Microwave</option>
+	<option value="Television">Television</option>
+	<option value="AC">AC</option>
+	<option value="Heater">Heater</option>
+	<option value="Cooktop">Cooktop</option>
+	<option value="Dishwasher">Dishwasher</option>
+	<option value="WashingMachine">Washing Machine</option>
+	<option value="Dryer">Dryer</option>
+		
+	</td>
+	
+	</tr>
+	<tr>
+				<td>
+					Model Number:
+				</td>
+				<td>
+					<input id="model_number" type="text" name="model_number" value="" />
+				</td>									
+	</tr>
+	<tr>
+				<td>
+					Usage in hrs:*
+				</td>
+				
+				<td>
+					<input id="daily_usage" type="number" name="daily_usage" size ="2" maxlength="2"value="" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					* Add all Your Appliances to get Accurate Usage Estimate
+				</td>
+				<br/><br/>
+			</tr><br><br>
+			<tr>
+				<td colspan="3">
+					
+					<span style="float:left;padding-top:30px">
+					<a href = "#pagetwo" data-role = "button" class = "ui-btn-active" >Back</a></li>
+					</span>
+					
+					<span style="float:left;padding-top:30px">
+					<a href = "#pagefour" data-role = "button" class = "ui-btn-active" >Add Appliance</a></li>
+					</span>
+					
+					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<span style="float:left;padding-top:20px">
+					<a href = "#pagefive" data-role = "button" class = "ui-btn-active" onclick="saveForm();">Submit</a></li>
+					</span>
+					
+				</td>
+			</tr>
+			
+	
+	
+	</table>
+		
+	</div>
+		
+	
+		</form> 
+	</div>
+	
+	<div id= "pagefour" data-role="page">
+	<div data-role="header">
+	<img src = "../images/bulb.jpg" alt = "E-Smart"  width="100px" height="100px" class="mylogo"/>
+			<div class="mylogo"></div>
+	<h1 style="padding-top:15px;margin-left:500px;color:white;font:25px Arial bold;"> E-Smart Recommendations </h1>
+		
+			
+	</div>
+		
+	<nav data-role="navbar">
+            <ul>
+			
+				
+                <li><a href = "" data-role = "button" class = "ui-btn-active" >Take a Survey</a></li>
+                <li><a href = "#" data-role = "button" rel="external" class = "ui-btn-active" data-transition="pop">Budget My Year</a></li>
+				<li><a href = "" data-role = "button" class = "ui-btn-active" data-transition="pop">Recommendations</a></li>
+				
+			</ul>
+				
+	</nav>
+		<form id="appliance3" name="user_form" >
+	<div>
+	<table style="float:left;color:brown;font:15px Arial bold;margin-left:60px">
+	<tr>
+	<td>Appliance:*</td>
+	<td><select name='appliance'>
+	
+	<option value="">--- Select ---</option>
+	<option value="Refrigerator">Refrigerator</option>
+	<option value="Microwave">Microwave</option>
+	<option value="Television">Television</option>
+	<option value="AC">AC</option>
+	<option value="Heater">Heater</option>
+	<option value="Cooktop">Cooktop</option>
+	<option value="Dishwasher">Dishwasher</option>
+	<option value="WashingMachine">Washing Machine</option>
+	<option value="Dryer">Dryer</option>
+		
+	</td>
+	
+	</tr>
+	<tr>
+				<td>
+					Model Number:
+				</td>
+				<td>
+					<input id="model_number" type="text" name="model_number" value="" />
+				</td>									
+	</tr>
+	<tr>
+				<td>
+					Usage in hrs:*
+				</td>
+				
+				<td>
+					<input id="daily_usage" type="number" name="daily_usage" size ="2" maxlength="2"value="" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					* Add all Your Appliances to get Accurate Usage Estimate
+				</td>
+				<br/><br/>
+			</tr><br><br>
+			<tr>
+				<td colspan="3">
+					
+					<span style="float:left;padding-top:30px">
+					<a href = "#pagefour" data-role = "button" class = "ui-btn-active" >Back</a></li>
+					</span>
+					
+					<span style="float:left;padding-top:30px">
+					<a href = "#pagefive" data-role = "button" class = "ui-btn-active" >Add Appliance</a></li>
+					</span>
+					
+					
+				</td>
+			</tr>
+			<tr>
+				<td colspan="1">
+					<span style="float:left;padding-top:20px">
+					<a href = "#pagefive" data-role = "button" class = "ui-btn-active" onclick="saveForm();">Submit</a></li>
+					</span>
+					
+				</td>
+			</tr>
+			
+	
+	
+	</table>
+		
+	</div>
+		
+	
+		</form>
+	</div>
+	<div id= "pagefive" data-role="page">
+	
+	<div data-role="header">
+	<img src = "../images/bulb.jpg" alt = "E-Smart"  width="100px" height="100px" class="mylogo"/>
+			<div class="mylogo"></div>
+	<h1 style="padding-top:15px;margin-left:500px;color:white;font:25px Arial bold;"> E-Smart Recommendations </h1>
+		
+			
+	</div>
+		
+	<nav data-role="navbar">
+            <ul>
+			
+				
+                <li><a href = "" data-role = "button" class = "ui-btn-active" >Take a Survey</a></li>
+                <li><a href="#pagetest" data-role = "button" rel="external" class = "ui-btn-active" data-transition="pop" onclick="computeBudget()">Budget My Year</a></li>
+				<li><a href = "" data-role = "button" class = "ui-btn-active" data-transition="pop">Recommendations</a></li>
+				
+			</ul>
+				
+	</nav>
+	<div style="padding-top:50px;float:left;margin-left:50px;color:blue;font:20px Arial bold">
+	
+
+	<div id="budget"></div>
+	
+	<a href = "" style="float:left;height:50px" data-role = "button" style="font:10px Arial bold" class = "ui-btn-active" data-transition="pop" onclick="computeBudget();">Generate Budget</a>
+	<br/>
+	<br/>
+	
+	<div id="showBudget" style="display:none;padding-top:20px;clear:both;float:left;color:red;font:20px Arial bold"> 
+	<div> The Annual estimated budget is $7236</div>
+	<br/>
+	<div id="chart_div" style="height:400px;width:700px"></div>
+	<br/>
+	</div>
+	<br/>
+	<br/>
+	
+	
+	
+	<div id="recommendations" style="padding-top:0px;"></div>
+	
+	
+	
+	<a href = "recomendation.html" rel="external" style="float:left;" data-role = "button"  class = "ui-btn-active" data-transition="pop">Generate Recommendations</a>
+	
+	<div id="tips" style="padding-top:70px;">
+	<br/>
+	<br/>
+	<a href = "" style="float:left;" data-role = "button"  class = "ui-btn-active" onclick="showTip();" data-transition="pop">Tip Of the Day</a>
+	<br/>
+	<br/>
+	<div id="showTip" style="display:none;"><iframe height="300" style="float:left;padding-top:20px;" align="middle" scrolling="no" frameborder="0" src="http://www.energystar.gov/index.cfm?c=tipofday.daily_tips"></iframe></div>
+	</div>
+
+	
+	
+	<br/>
+	<br/>
+	
+	</div>
+	</div>
+	
+	
+	</body>
+                
