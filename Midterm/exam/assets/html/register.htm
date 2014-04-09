@@ -1,0 +1,69 @@
+<link rel="stylesheet" type="text/css" href="../css/login.css">
+<SCRIPT SRC="validation.js"></SCRIPT>
+<div id="container_demo" >
+    <a class="hiddenanchor" id="toregister"></a>
+    <div id="wrapper">
+<div id="register" class="animate form">
+            <form autocomplete="on"> 
+                <h1 style="color:white;font-weight:bold;font-family:magneto"> Sign up </h1> 
+					<table>
+						<tr>
+							<td width = "250px" align="right">
+								<label for="usernamesignup" data-icon="u" style="color:white;font-weight:bold;font-family:magneto">User name:</label>
+							</td>
+							<td>
+								<input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="username565" />
+							</td>
+						</tr>
+						<tr>
+							<td width="150px" align="right">
+								 <label for="emailsignup" data-icon="e" style="color:white;font-weight:bold;font-family:magneto">Email:</label>
+							</td>
+							<td>
+								 <input id="emailsignup" name="emailsignup" required="required" type="email" placeholder="email@mail.com"/>
+							</td>
+						</tr>						
+						<tr>
+							<td width="150px" align="right">
+								<label for="passwordsignup" data-icon="p" style="color:white;font-weight:bold;font-family:magneto">Password </label>
+							</td>
+							<td>
+								 <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. J8df!90E5"/>
+							</td>
+						</tr>	
+						<tr>
+							<td width="150px" align="right">
+				                    <label for="passwordsignup_confirm" data-icon="p" style="color:white;font-weight:bold;font-family:magneto">Cofirm password </label>
+							</td>
+							<td>
+							<input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. J8df!90E5"/>
+							</td>
+						</tr>
+												
+						<tr>
+							<td width="150px" align="right">
+							<label for="addresssignup" data-icon="u" style="color:white;font-weight:bold;font-family:magneto">Address </label>
+							</td>
+							<td>
+							<input id="addresssignup" name="addresssignup" required="required" type="address" placeholder="address67thStreet"/>
+							</td>
+						</tr>												
+						<tr>
+							<td width="150px" align="right">
+							<label for="phonenumbersignup" data-icon="u" style="color:white;font-weight:bold;font-family:magneto">Phone number </label>
+							</td>
+							<td>
+							                    <input id="phonenumbersignup" name="phonenumbersignup" required="required" type="phonenumber" placeholder="landline or mobile number"/>
+							</td>
+						</tr>
+					</table>
+               
+                <p class="signin button"> 
+                    <input type="submit" style="color:black;font-weight:bold;font-family:magneto" value="Sign up" onclick ="myMap.soap('xml','InsertTable','usernamesignup','emailsignup','passwordsignup','addresssignup','phonenumbersignup');"/> <div id="errfn"></div>
+                </p>
+                <p class="change_link" style="color:white;font-weight:bold;font-family:magneto">  
+                    Already a member ?
+                    <a href="login.htm" class="to_register" style="color:white;font-weight:bold;font-family:magneto"> Go and log in </a>
+                </p>
+            </form>
+</div>

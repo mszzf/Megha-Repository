@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<link rel='stylesheet' href='../css/bootstrap.css'/>
+    <title>Home Comfort</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/webServices.js"></script>
+
+
+<style>
+
+.ask-title-field{
+width:610px;
+}
+
+.edit-field-overlayed{
+color:#888;
+}
+
+.wmd-button-bar{
+height:25px;
+width:660px;
+clear:both;
+background-color:#fff;
+margin-top:10px;
+margin-right:0px;
+margin-bottom:1px;
+margin-left:0px;}
+
+.wmd-button-row{
+position:relative;
+padding:0px;
+height:20px;
+margin:0px;
+}
+.wmd-button{
+width:20px;
+height:20px;
+padding-left:2px;
+padding-right:3px;
+position:absolute;
+display:inline-block;
+list-style:none;
+cursor:pointer;
+}
+
+
+</style>
+	
+	
+<script>
+var forum=new Object();
+forum.threads=[];
+var thread = new Object();
+thread.id='1';
+var message="test message";
+thread.message=message;
+forum.threads.push(thread);
+
+
+
+var emailId="test@mail.umkc.edu";
+
+var userId="admin";
+
+var password="123456";
+
+var handle="yanky doodle";
+
+function loadMessage(){
+
+$('#emailId').html(emailId);
+$('#handle').html(handle);
+$('#message').html(message);
+
+}
+function makeVisibleCreateThread(){
+
+var createThread=document.getElementById("createThread");
+
+createThread.style.display="block";
+
+}
+
+function makeVisibleRegister(){
+var register=document.getElementById("register");
+register.style.display="block";
+
+}
+
+</script>
+    
+   	
+</head>
+<!--<body onload='twitter.createTweets();'>-->
+<body onload='loadMessage();' background="http://www.freewebsitetemplates.com/preview/woodworkingwebsitetemplate/images/bg-body.png">
+	
+	<div class="container">
+		<h1><a href="#">Discussion Board</a></h1>
+		<div class="navbar">
+              <div class="navbar-inner">
+                <div class="container">
+                  <ul class="nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Energy Analyzer</a></li>
+                    <li><a href="#">Home Comfort Dashboard</a></li>
+                    <li><a href="#">Discussion Board</a></li>
+                    <li><a href="#">Budget My Year</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+			
+<div class="hero-unit">
+    <h1 style="clear:both;margin-left:0px;font:40px Arial bold">Get Rewarded for Saving Energy</h1>
+	<div style="clear:both;margin-left:0px">
+    <p>Based on your savings on the utility bill reward points will be awarded to you which you can use to play games on social networking sites.</p>
+	</div>
+    <a href="#" class="btn btn-large btn-success">Get Started</a>
+</div>
+
+
+	
+<div style="float:left;margin-left:-300px;margin-top:-350px;clear:both;">
+
+ <ul class="nav nav-list">
+    <li class="nav-header">What do you wish to do?</li>
+    <li class="active"><a href="#" onclick="makeVisibleCreateThread();">Create Thread</a></li>
+	<li><a href="#">Post on Thread</a></li>
+    <li><a href="#" onclick="makeVisibleRegister();">Register on My Community</a></li>
+    <li><a href="#">Compute Reward Points</a></li>
+    <li><a href="#">See Reward Points</a></li>
+    
+    <li class="nav-header">Our Friends</li>
+    <li><a href="#">Google</a></li>
+    <li><a href="#">Yahoo!</a></li>
+    <li><a href="#">Bing</a></li>
+    <li><a href="#">Microsoft</a></li>
+    <li><a href="#">Gadgetic World</a></li>
+</ul>
+
+</div>
+	
+	
+	<div id='2'>
+	</div>
+	
+	<div id="createThread" class="hero-unit" style="display:none">
+	<div style="font-size:115%;font-weight:bold;padding-bottom:3px;float:left;left-margin:80px"> Please Post your question below </div>
+	<br/>
+	<br/>
+	<table id="thread">
+		<tr>
+		
+			<td> 
+				<label for="title" style="font-size:115%;font-weight:bold;padding-bottom:3px;">Title</label>
+			</td>
+			<td class="ask-title-cell-value">
+               <input id="title" name="title" type="text" maxlength="300" tabindex="100" class="ask-title-field edit-field-overlayed" data-min-length="15" data-max-length="150" style="opacity:0.666;z-index:1;position:relative;float:left;margin-left:10px;">                        
+               
+			   
+            </td>
+		</tr>
+		
+		<tr>
+		
+			<td> 
+				<label for="user" style="font-size:115%;font-weight:bold;padding-bottom:3px;">User</label>
+			</td>
+			<td class="ask-title-cell-value">
+               <input id="user" name="user" type="text" maxlength="100" tabindex="100" class="ask-title-field edit-field-overlayed" data-min-length="15" data-max-length="150" style="opacity:0.666;z-index:1;position:relative;float:left;margin-left:10px;">                        
+               
+			   
+            </td>
+		</tr>
+		
+		<tr>
+		<td style="vertical-align:top"> 
+			<span>
+				<label for="question" style="font-size:115%;font-weight:bold;padding-bottom:3px;">Question</label>
+			</span>
+		</td>
+		<td>
+		<div id="post-editor" class="post-editor">
+		<div style="position:relative">
+		
+			<textarea id="question" name="question"  maxlength="300" tabindex="100" class="ask-title-field edit-field-overlayed" data-min-length="15" data-max-length="150" style="opacity:0.666;z-index:1;position:relative;float:left;margin-left:10px;height:200px;" multiple="multiple"></textarea>                      
+			
+			
+		</div>
+		</div>
+		</td>
+		</tr>
+		
+		<tr>
+		<td colspan="2">
+		
+		<a href = "#" data-role = "button" class="btn btn-large btn-success" onclick=";">Submit</a>
+		
+		</td>
+		</tr>
+		
+		</table>
+	
+
+	</div>
+	
+	<div id="register" class="hero-unit" style="display:none;">
+	
+	<table id="form">
+		<tr>
+		
+			<td> 
+				<label for="UserName" style="font-size:115%;font-weight:bold;padding-bottom:3px;">User Name</label>
+			</td>
+			<td class="ask-title-cell-value">
+               <input id="UserName" name="UserName" type="text" maxlength="300" tabindex="100" class="ask-title-field edit-field-overlayed" data-min-length="15" data-max-length="150" style="opacity:0.666;z-index:1;position:relative;float:left;margin-left:10px;width:150px">                        
+              		   
+            </td>
+		</tr>
+		
+		<tr>
+		
+			<td> 
+				<label for="householdSize" style="font-size:115%;font-weight:bold;padding-bottom:3px;">Household Size</label>
+			</td>
+			<td class="ask-title-cell-value">
+               <input id="householdSize" name="householdSize" type="text" maxlength="100" tabindex="100" class="ask-title-field edit-field-overlayed" data-min-length="15" data-max-length="150" style="opacity:0.666;z-index:1;position:relative;float:left;margin-left:10px;width:150px">                          
+            </td>
+		</tr>
+		
+		<tr>
+		<td> 
+			<label for="houseType" style="font-size:115%;font-weight:bold;padding-bottom:3px;">House Type</label>
+		</td>
+		<td class="ask-title-cell-value">
+               <select id="houseType" name="houseType" type="text" maxlength="100" tabindex="100" class="ask-title-field edit-field-overlayed" data-min-length="15" data-max-length="150" style="opacity:0.666;z-index:1;position:relative;float:left;margin-left:10px;width:165px">                          
+				<option value="">----Select----</option>
+				<option value="oneBedRoom">Single Bed Room</option>
+				<option value="doubleBedRoom">Double Bed Room</option>
+				<option value="threeBedRoom">Three Bed Room</option>
+				<option value="condomanium">Condomanium</option>
+	   </td>
+		</tr>
+		
+		
+		<tr>
+		
+			<td> 
+				<label for="zipcode" style="font-size:115%;font-weight:bold;padding-bottom:3px;">Zipcode</label>
+			</td>
+			<td class="ask-title-cell-value">
+               <input id="zipcode" name="zipcode" type="text" maxlength="100" tabindex="100" class="ask-title-field edit-field-overlayed" data-min-length="15" data-max-length="150" style="opacity:0.666;z-index:1;position:relative;float:left;margin-left:10px;width:150px">                          
+            </td>
+		</tr>
+		<tr>
+		
+			<td> 
+				<label for="community" style="font-size:115%;font-weight:bold;padding-bottom:3px;">Community</label>
+			</td>
+			<td class="ask-title-cell-value">
+               <input id="community" name="community" type="text" maxlength="100" tabindex="100" class="ask-title-field edit-field-overlayed" data-min-length="15" data-max-length="150" style="opacity:0.666;z-index:1;position:relative;float:left;margin-left:10px;width:150px">                          
+            </td>
+		</tr>
+		
+		<tr>
+		
+			<td> 
+				<label for="utilityBill" style="font-size:115%;font-weight:bold;padding-bottom:3px;">Utility Bill</label>
+			</td>
+			<td class="ask-title-cell-value">
+               <input id="utilityBill" name="utilityBill" type="text" maxlength="100" tabindex="100" class="ask-title-field edit-field-overlayed" data-min-length="15" data-max-length="150" style="opacity:0.666;z-index:1;position:relative;float:left;margin-left:10px;width:150px">                          
+            </td>
+		</tr>
+		
+		<tr>
+		<td colspan="2">
+		
+		<a href = "#" data-role = "button" class="btn btn-large btn-success" onclick=";">Generate Reward Points</a>
+		
+		</td>
+		</tr>
+		
+		</table>
+	
+	</div>
+
+		<span id="emailId"></span>
+		<span id="handle"></span>
+		<span id="message"></span>
+		
+	
+		
+	
+	
+	</div>
+	
+
+	
+	</body>
+	
+	

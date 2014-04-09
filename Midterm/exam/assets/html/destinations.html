@@ -1,0 +1,680 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel='stylesheet' href='../css/bootstrap.css' />
+    <title>My Travels</title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places,weather&sensor=true"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script type="text/javascript" src="../js/plugins/raty-2.5.2/lib/jquery.raty.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/soapclient.js"></script>
+    <script type="text/javascript" src="../js/webServices.js"></script>
+
+
+    <style>
+        .bar {
+            height: 220px;
+            float: left;
+            width: 60px
+        }
+        .bar-container {
+            width: 150px;
+            float: left;
+            padding-top: 70px;
+            color: brown;
+            font: 17px Arial bold;
+            margin-left: 20px;
+            position: absolute;
+        }
+        .emoticon-container {
+            float: left;
+            padding-top: 70px;
+            color: brown;
+            font: 17px Arial bold;
+            margin-left: 20px;
+        }
+        .smile-container {
+            float: left;
+            padding-top: 50px;
+            color: black;
+            font: 17px Arial bold;
+            margin-left: 300px;
+        }
+        .outside-container {
+            float: left;
+            color: black;
+            font: 25px Arial bold;
+            margin-left: 20px;
+        }
+        .gauge {
+            float: left;
+            width: 100px
+        }
+        .bigger-container {
+            float: left;
+            padding-top: 0px;
+            margin-left: 130px;
+        }
+        .left {
+            float: left
+        }
+        .bar-label {
+            margin-bottom: 15px;
+            display: inline-block;
+            color: black
+        }
+        .backg {
+            background-color: black;
+            clear: both
+        }
+        .ui-slider-range.ui-widget-header {
+            background: brown;
+        }
+        .backb {
+            background-image: url("best.png")
+        }
+        h1 {
+            float: left;
+            margin-left: 500px;
+            font: 50px Arial bold;
+            color: black
+        }
+        h1:hover {
+            cursor: pointer;
+            color: #f00;
+        }
+        h1:active {
+            color: #555;
+        }
+        .clear {
+            clear: both
+        }
+        .box-text {
+            width: 300px;
+            height: 70px;
+            background-color: green;
+            box-shadow: 10px 10px 5px #888888;
+        }
+        .box-heading {
+            width: 350px;
+            height: 100%;
+            background-color: blue;
+            box-shadow: 10px 10px 5px #888888;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+
+
+        });
+
+        function tts(text) {
+            var voiceRssKey = '026492b19f8244c0936e6450afd5ce07';
+            var voiceUrl = 'http://api.voicerss.org?key=' + voiceRssKey + '&src=' + text + '&hl=en-us';
+            var recommendationVoice = document.getElementById('recommendationVoice');
+			var audioPlayer = document.getElementById('audioPlayer');
+			recommendationVoice.src = voiceUrl;
+			audioPlayer.load();
+			audioPlayer.play();
+        }
+
+
+
+        function viewRoutesNames() {
+
+            var routeLinks = document.getElementById("routeLinks");
+            routeLinks.innerHTML = '';
+            var routes = this.allRoutes;
+			var sourceText = document.getElementById("source");
+			var source = sourceText.value;
+			var destinationText = document.getElementById("destination");
+			var destination = destinationText.value;
+			var recommend=document.getElementById("recommend");
+			var fileredRoutes=[];
+			var cheapestRouteIndex=0;
+			for (var i = 0; i < routes.length; i++) {
+				if(source!='' && destination!='' && (routes[i].source.name!=source ||routes[i].destination.name!=destination)){
+						continue;
+					}
+				
+				fileredRoutes.push(routes[i]);
+				if(routes[i].price < routes[cheapestRouteIndex].price){
+				cheapestRouteIndex = fileredRoutes.length-1;
+				}
+
+			}
+			
+			var tableRoutes ="<table style='width:100%'>";
+			for (var i = 0; i < fileredRoutes.length; i++) {
+                var name = fileredRoutes[i].name;
+				var price=fileredRoutes[i].price;
+				var rating=fileredRoutes[i].rating;
+                tableRoutes +="<tr>";
+               
+			   tableRoutes +="<td>";
+			   tableRoutes +="<a href='#routeDetail' onclick='viewRouteDetails(&quot;" + name + "&quot;);'> " + name + "</a>";
+			   tableRoutes +="</td>";
+			   
+			   tableRoutes +="<td>";
+			   tableRoutes += fileredRoutes[i].source.name  +" to " + fileredRoutes[i].destination.name;
+			   tableRoutes +="</td>";
+			   
+			   tableRoutes +="<td>";
+			   tableRoutes += "$" + price;
+			   tableRoutes +="</td>";
+			   
+			   tableRoutes +="<td style='width:150px'>";
+			   tableRoutes += "<div class='rating'>"+rating+"</div>";
+			   tableRoutes +="</td>";
+
+			   tableRoutes +="<td>";
+			   if(fileredRoutes.length < routes.length && cheapestRouteIndex==i){
+				tableRoutes += "<sapn style='color:red'>   recommended</span>";
+				}
+				tableRoutes +="</td>";
+			    tableRoutes +="</tr>";
+			
+
+            }
+			tableRoutes +="</table>";
+			routeLinks.innerHTML +=tableRoutes;
+			$('div.rating').each(function(){
+			var rating = this.innerHTML;
+			this.innerHTML = '';
+			var intRating=parseInt(rating);
+			if(intRating!=NaN){
+			$(this).raty({path: '../js/plugins/raty-2.5.2/lib/img', readOnly: true, score:intRating});
+			}
+			$(this).attr('style','width:auto');
+			
+			});
+			
+			sourceText.value='';
+			destinationText.value='';
+        }
+
+        function viewRoutes() {
+            var viewRoutesDetails = document.getElementById("viewRoutesDetails");
+            viewRoutesDetails.style.display = "none";
+
+
+            var viewPlaceDetails = document.getElementById("viewPlaceDetails");
+            viewPlaceDetails.style.display = "none";
+
+
+            var viewRoutes = document.getElementById("viewRoutes");
+            viewRoutes.style.display = "block";
+
+
+            route.callback = viewRoutesNames;
+            route.getAllRoutes();
+
+        }
+
+       function populateFourSquarePlace(data) {
+
+            var placeDetails = document.getElementById("placeDetails");
+            if (placeDetails) {
+                for (var i = 0; i < 1; i++) {
+                    var venue = data.response.venues[i];
+					var address=venue.location.address;
+					var phoneNumber=venue.contact.formattedPhone;
+					var url=venue.url;
+                    placeDetails.innerHTML = "<br/><b>"+venue.name + '</b> <br/>' + address+' <br/>' +phoneNumber+' <br/>'+"<a href='"+url+"'>"+url+"</a>";
+               }
+            }
+       }
+
+        function viewRoutePlacesDetails() {
+            var route = this;
+            var places = route.places;
+			
+            var placesDetails = document.getElementById("placesDetails");
+            placesDetails.innerHTML = '';
+
+            var wayPoints = [];
+
+			        
+             
+            for (var i = 0; i < places.length; i++) {
+                var place = places[i];
+				 placesDetails.innerHTML += place.name + '<br/>';
+                if (i > 0 && i < places.length - 1) {
+                    wayPoints.push(new google.maps.LatLng(place.latitude, place.longitude));
+                }
+            }
+
+            var source = new google.maps.LatLng(this.source.latitude, this.source.longitude);
+            var destination = new google.maps.LatLng(this.destination.latitude, this.destination.longitude);;
+
+            var mapContainer = document.getElementById("mapContainer");
+            var directionContainer = document.getElementById("directionContainer");
+
+            googleMap.direction(mapContainer, directionContainer, source, destination, wayPoints);
+
+        }
+
+        function viewRouteDetails(name) {
+            var viewRoutes = document.getElementById("viewRoutes");
+            viewRoutes.style.display = "none";
+
+            var viewRoutesDetails = document.getElementById("viewRoutesDetails");
+            viewRoutesDetails.style.display = "block";
+
+            route.callback = viewRoutePlacesDetails;
+            route.getRoute(name);
+        }
+
+
+        function populateFourSquareNearBy(data) {
+            var nearByPlaces = document.getElementById("nearByPlaces");
+            if (nearByPlaces) {
+               var items = data.response.groups[0].items
+			   nearByPlaces.innerHTML = '<b>Recommended Venues:</b>';
+			   
+             for (var i = 0; i < items.length; i++) {
+                    var venue = items[i].venue;
+					var address=venue.location.address;
+					var phoneNumber=venue.contact.formattedPhone;
+					var url=venue.url;
+                    var name = "<span><br/><b>"+venue.name + '</b> <br/>' + address+' <br/>' +phoneNumber+' <br/>'+"<a href='"+url+"'>"+url+"</a>";
+                    nearByPlaces.innerHTML += name + '</span>';
+                }
+            }
+        }
+
+        function viewPlaceDetails(first) {
+            if (first && first == true) {
+                route.currentPlace = 0;
+            } else {
+                route.currentPlace += 1;
+
+            }
+            if (route.currentPlace < route.places.length) {
+
+                var viewRoutes = document.getElementById("viewRoutesDetails");
+                viewRoutes.style.display = "none";
+
+                var viewPlaceDetails = document.getElementById("viewPlaceDetails");
+                viewPlaceDetails.style.display = "block";
+
+                var place = route.places[route.currentPlace];
+				 
+				var placeImage=document.getElementById("placeImage");
+				placeImage.src=place.image;
+				
+				var additionalInfoPlace=document.getElementById("additionalInfoPlace");
+				additionalInfoPlace.innerHTML="User Comments: "+place.additionalInfo;
+             
+    		    var fourSquareExact = new FourSquare();
+    		   
+ 			    fourSquareExact.callback = populateFourSquarePlace;
+               
+			    fourSquareExact.match(place.latitude, place.longitude, undefined, 1);
+                
+
+                fourSquare.callback = populateFourSquareNearBy;
+
+                fourSquare.explore(place.latitude, place.longitude,undefined,5);
+
+                var mapContainer = document.getElementById("mapContainerWalk");
+
+                var source = new google.maps.LatLng(place.latitude, place.longitude);
+
+
+                var directionContainer = document.getElementById("directionContainerWalk");
+				var seeDirections=document.getElementById("seeDirections");
+				seeDirections.style.display="block";
+                directionContainer.innerHTML = '';
+                if (route.currentPlace < route.places.length - 1) {
+
+                    var nextPlace = route.places[route.currentPlace + 1];
+
+                    var destination = new google.maps.LatLng(nextPlace.latitude, nextPlace.longitude);
+                    googleMap.direction(mapContainer, directionContainer, source, destination, "");
+
+                } else {
+					seeDirections.style.display="none";
+                    googleMap.centeredMap(mapContainer, source);
+                }
+
+                var checkIn = document.getElementById("checkIn");
+                var done = document.getElementById("done");
+
+                if (place.id != route.destination.id) {
+                    checkIn.style.visibility = "visible";
+                    done.style.visibility='hidden';
+                } else {
+                    checkIn.style.visibility = "hidden";
+                    done.style.visibility='visible';
+                }
+            }
+        }
+
+        function createRoute() {
+
+            var viewRoutesDetails = document.getElementById("viewRoutesDetails");
+            viewRoutesDetails.style.display = "none";
+            var viewRoutes = document.getElementById("viewRoutes");
+            viewRoutes.style.display = "none";
+            var destinationInfo = document.getElementById('createRoute');
+            destinationInfo.style.display = "block";
+			
+			var routeInputRow = document.getElementById('routeInputRow');
+		    routeInputRow.style.visibility = 'visible';
+			var routePriceRow = document.getElementById('routePriceRow');
+		    routePriceRow.style.visibility = 'visible';
+            
+			
+			route=new Route();
+			
+        }
+		
+		function checkWithFourSquare(data) {
+           if (data.response.venues.length > 0) {
+		   var routeText = document.getElementById('route');
+            if (route.places.length==0) {
+                var routeText = document.getElementById('route');
+                route.name = routeText.value;
+            }
+			
+            var routeInputRow = document.getElementById('routeInputRow');
+		    routeInputRow.style.visibility = 'hidden';
+			var routePriceRow = document.getElementById('routePriceRow');
+		    routePriceRow.style.visibility = 'hidden';
+            var place = new Place();
+            var venue =  data.response.venues[0];          
+            place.name = venue.name;
+            var commentsText = document.getElementById('comments');
+            place.additionalInfo = commentsText.value;
+            var pictureText = document.getElementById('picture');
+            place.image = pictureText.value;
+			place.latitude=venue.location.lat;
+			place.longitude=venue.location.lng;
+			route.places.push(place);
+			routeText.value='';
+			var placeText = document.getElementById('place');
+            placeText.value='';
+			commentsText.value='';
+			pictureText.value='';
+			
+			
+        }
+		}
+		
+		function checkLongitudeLatitude(){
+		 fourSquare.callback = checkWithFourSquare;
+         fourSquare.match(googleMap.latitude, googleMap.longitude, googleMap.address);
+		}
+		
+		
+        function addPlace(newRoute) {
+            var place = document.getElementById('place');
+            googleMap.callback = checkLongitudeLatitude;
+            googleMap.setLongitudeLatitude(place.value);
+        }
+		
+		function addRouteCallback(response){
+		
+		if(response && response=='Success insert'){
+		if(this.published==true){
+		var createRoute = document.getElementById('createRoute');
+		createRoute.style.display="none";
+		viewRouteDetails(this.name);
+		
+		}
+		
+		
+		
+		}
+		}
+		function addRoute(){
+		route.callback=addRouteCallback;
+		route.publish();
+				
+		}
+		
+		function searchRoute(){
+		viewRoutesNames.call(route);
+				
+		}
+		
+    function seeDirections(){
+	
+	var directionContainerWalk=document.getElementById("directionContainerWalk");
+	directionContainerWalk.style.display="block";
+	
+	}
+	
+	function done(){
+	
+	var routeSummary=document.getElementById("routeSummary");
+	routeSummary.style.display="block";
+	
+	var viewPlaceDetails=document.getElementById("viewPlaceDetails");
+	viewPlaceDetails.style.display="none";
+	
+	var ratings = route.ratings;
+	$("#inputRating").raty({path: '../js/plugins/raty-2.5.2/lib/img',score:ratings});
+	}
+	
+	function listenDirections(){
+	tts($("#directionContainerWalk").text()); 
+	}
+	
+	</script>
+</head>
+
+
+<body background="http://www.freewebsitetemplates.com/preview/woodworkingwebsitetemplate/images/bg-body.png">
+<div>
+<audio id="audioPlayer">
+        <source id="recommendationVoice" type="audio/mpeg" src="http://tts-api.com/tts.mp3?q=hi" />
+ </audio>
+ </div>
+
+
+    <div class="container">
+	 
+
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <ul class="nav">
+                        <li class="active"><a href="#" onclick='window.location.reload(true);'>Home</a>
+                        </li>
+                        <li><a href="#">Account</a>
+                        </li>
+                        <li><a href="#">Careers</a>
+                        </li>
+                        <li><a href="#">Products & Services</a>
+                        </li>
+                        <li><a href="#">About US</a>
+                        </li>
+                        <li><a href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-unit">
+            <h1 style="clear:both;margin-left:0px">My Travels</h1>
+            <div style="clear:both;margin-left:0px">
+                <!-- <a href="#" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="fourSquare.getToken();">Create a Route</a>-->
+                <a href="#" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="createRoute();">Create a Route</a>
+                <a href="#" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="viewRoutes();">Trace Route</a>
+                <a href="#" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="">Walk Through a Route</a>
+            </div>
+
+        </div>
+
+        <div id="viewRoutes" style="display:none" class="hero-unit">
+       
+            <div id="searchRoutes">
+               <table>
+                <tr>
+                    <td>Source: </td>
+                    <td style="padding-top:9px">
+                        <input id="source" type="text" maxlength="100" value="" />
+                    </td>
+                    <td style="padding-left:15px">Destination: </td>
+                    <td style="padding-top:9px">
+                        <input id="destination" type="text" maxlength="100" value="" />
+                    </td>
+               
+                    <td style="padding-left:15px">
+                        <a data-role="button" class="btn btn-success" onclick="searchRoute();">Search</a>
+                    </td>
+                </tr>
+            </table>
+                
+            </div>
+			
+			<div id="routeLinks">
+
+            </div>
+			<span id='recommend'></span>
+
+        </div>
+
+        <div id="viewRoutesDetails" style="display:none;" class="hero-unit">
+
+            <div id="mapContainer" style="height:350px;overflow:auto">
+
+
+            </div>
+            <div id="directionContainer" style="height:200px;margin-top:30px;overflow:auto">
+
+            </div>
+			<span style="display:inline-block;margin-top:30px;padding-top:30px"><b>This route will cover the following destinations:</b></span>
+			<br/>
+            <div id="placesDetails" style="margin-top:10px;overflow:auto">
+
+            </div>
+
+            <a href="#viewPlaceDetails" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="viewPlaceDetails(true);">Select Route</a>
+            <a href="#" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="viewRoutes();">Back</a>
+
+
+
+
+
+        </div>
+
+        <div id="viewPlaceDetails" style="display:none;" class="hero-unit">
+		
+		<table style="width:100%">
+		<tr>
+			<td style="width:55%; vertical-align:top">
+			<span><b>Your current location </b></span>
+			<span id="placeDetails"></span>
+			<br/>
+						
+			<span id="additionalInfoPlace"></span>
+			<div id="placesPictureWalk">
+			<img src = "" id="placeImage" />		
+			</div>
+			</td>
+			<td style="width:35%;padding-left:10%;text-align:right">
+			<table>
+			<tr>
+			<td style="text-align:right";
+			<div id="nearByPlaces" style="margin-top:60px;overflow:auto"></div>
+			</td>
+			</tr>
+			</table>
+			</td>
+		</tr>
+		<tr>
+		<td colspan="2" style="padding-top:30px"> <div id="mapContainerWalk" style="height:350px;overflow:auto"></div>
+			<div id='seeDirections'>
+			<a href="#" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="seeDirections();">See Directions</a>
+			<a href="#" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="listenDirections();">Listen Directions</a>
+            <div id="directionContainerWalk" style="display:none;height:200px;margin-top:30px;overflow:auto"></div>
+			</div>
+			 <a href="#viewPlaceDetails" id="checkIn" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="viewPlaceDetails();">Check-in</a>
+			 <a href="#" data-role="button" style="margin-top:30px" class="btn btn-large btn-success" onclick="viewRoutes();">Back</a>
+			 <a href="#routeSummary" id="done" data-role="button" style="margin-top:30px;visibility:hidden" class="btn btn-large btn-success" onclick="done();">Done</a>
+            
+		</td>
+		</tr>
+		</table>
+        </div>
+
+        <div id="createRoute" style="display:none" class="hero-unit">
+            <span> Enter Destination Information</span>
+            <table>
+                <tr id='routeInputRow'>
+                    <td>Route:</td>
+                    <td>
+                        <input id="route" type="text" name="name" maxlength="250"/>
+                    </td>
+                </tr>
+				<tr id='routePriceRow'>
+                    <td>Price:</td>
+                    <td>
+                        <input id="price" type="text" name="price" maxlength="250"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Place:</td>
+                    <td>
+                        <input id="place" type="text" name="name" maxlength="250"/>
+                    </td>
+                </tr><tr>
+                    <td>Comments:</td>
+                    <td>
+                        <input id="comments" type="text" name="info" maxlength="250"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Picture:</td>
+                    <td>
+                        <input id="picture" type="text" name="pic" maxlength="250"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <a href="#createRoute" data-role="button" class="btn btn-large btn-success" onclick="addPlace();">Add Destination</a>
+                        <a href="#" data-role="button" class="btn btn-large btn-success" onclick="addRoute();">Publish Route</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+		
+		<div id="routeSummary" style="display:none" class="hero-unit">
+            <span> Congratulations! you have successfully walked-through the route.</span>
+			<img alt="Thumbs up" width=45 height=45 src="http://www.sherv.net/cm/emo/happy/big-grin-smiley-emoticon.gif">
+            <table>
+                <tr>
+                    <td>
+                        <div>
+						<span>Please Rate the route: </span>
+						<div id='inputRating'>
+						</div>
+						</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a data-role="button" class="btn btn-large btn-success" onclick="window.location.reload(true);">Home</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+c:\users\ganapathy\documents\visual studio 2010\Projects\SoapService\SoapService\bin\SoapService.dll
+c:\users\ganapathy\documents\visual studio 2010\Projects\SoapService\SoapService\bin\SoapService.pdb
+c:\users\ganapathy\documents\visual studio 2010\Projects\SoapService\SoapService\obj\Debug\SoapService.dll
+c:\users\ganapathy\documents\visual studio 2010\Projects\SoapService\SoapService\obj\Debug\SoapService.pdb
+C:\Users\Ganapathy\Documents\Visual Studio 2010\Projects\SoapService\SoapService\obj\Debug\SoapService.csprojResolveAssemblyReference.cache
+C:\Users\ranger\Documents\GitHub\Megha-Repository\backup\Project-Phase2\assets\SoapService\SoapService\bin\SoapService.dll
+C:\Users\ranger\Documents\GitHub\Megha-Repository\backup\Project-Phase2\assets\SoapService\SoapService\bin\SoapService.pdb
+C:\Users\ranger\Documents\GitHub\Megha-Repository\backup\Project-Phase2\assets\SoapService\SoapService\obj\Debug\SoapService.dll
+C:\Users\ranger\Documents\GitHub\Megha-Repository\backup\Project-Phase2\assets\SoapService\SoapService\obj\Debug\SoapService.pdb
